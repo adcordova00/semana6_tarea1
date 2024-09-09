@@ -10,7 +10,6 @@ namespace Login.Config
 {
     class Encriptacion
     {
-                                             //contraaenia         Este es el codigo
         public static string Encripta(string textoaencriptar, string codigosecreto) {
             byte[] dto = new byte[16];
             byte[] array;
@@ -67,29 +66,6 @@ namespace Login.Config
                     stringBuilder.Append(hashbytes[i].ToString("X2"));
                 }
                 return stringBuilder.ToString();
-                //"1111"
-                //X2  => "05"
-
-                //123
-                //dfkljbgs;lfherh5614y56hj4e5t4r
-                /*
-                 * select * from ususario where usuarios = '' or 1=1 --
-                 * 
-                 * 
-                 * 
-                 IdUsurio   nombre_usuairo  passowrd                    rol
-                    1           guardia       kjshgdkgjtr2515748        Guardia
-                 
-
-                form => 123
-                  if (metodoecnptacion(123) === salebasedatos){
-                
-                return usuario;
-                }
-
-
-
-                 */
 
             }
 

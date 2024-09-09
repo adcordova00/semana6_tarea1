@@ -10,7 +10,7 @@ namespace Login.config
         static Conexion()
         {
             // Aquí puedes establecer tu cadena de conexión. Se recomienda obtenerla de un archivo de configuración o variables de entorno.
-            connectionString = "Server=.;Database=nueva;User Id=sa;Password=123;";
+            connectionString = "Server=DESKTOP-KA0EPGU\\SQLEXPRESS;Database=login;User Id=sa;Password=1234;";
         }
 
         public static SqlConnection GetConnection()

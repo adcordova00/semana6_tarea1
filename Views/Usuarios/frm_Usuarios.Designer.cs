@@ -44,6 +44,7 @@ namespace Login.Views.Usuarios
             this.label4 = new System.Windows.Forms.Label();
             this.lst_usuarios = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btn_eliminar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -55,7 +56,6 @@ namespace Login.Views.Usuarios
             this.button1.TabIndex = 0;
             this.button1.Text = "Encender";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -126,6 +126,7 @@ namespace Login.Views.Usuarios
             this.btn_cancelar.TabIndex = 7;
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // lbl_titulo
             // 
@@ -159,9 +160,9 @@ namespace Login.Views.Usuarios
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(40, 197);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(183, 25);
+            this.label3.Size = new System.Drawing.Size(194, 25);
             this.label3.TabIndex = 11;
-            this.label3.Text = "Repita la Contrseña";
+            this.label3.Text = "Repita la Contraseña";
             // 
             // label4
             // 
@@ -191,11 +192,22 @@ namespace Login.Views.Usuarios
             this.label5.TabIndex = 14;
             this.label5.Text = "Lista de Usuarios";
             // 
+            // btn_eliminar
+            // 
+            this.btn_eliminar.Location = new System.Drawing.Point(521, 390);
+            this.btn_eliminar.Name = "btn_eliminar";
+            this.btn_eliminar.Size = new System.Drawing.Size(125, 52);
+            this.btn_eliminar.TabIndex = 15;
+            this.btn_eliminar.Text = "Eliminar";
+            this.btn_eliminar.UseVisualStyleBackColor = true;
+            this.btn_eliminar.Click += new System.EventHandler(this.btn_eliminar_Click);
+            // 
             // frm_Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(673, 475);
+            this.Controls.Add(this.btn_eliminar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lst_usuarios);
             this.Controls.Add(this.label4);
@@ -239,5 +251,6 @@ namespace Login.Views.Usuarios
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox lst_usuarios;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btn_eliminar;
     }
 }

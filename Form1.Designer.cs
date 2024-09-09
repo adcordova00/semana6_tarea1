@@ -56,7 +56,7 @@ namespace Login
             this.btn_Guardar.Name = "btn_Guardar";
             this.btn_Guardar.Size = new System.Drawing.Size(112, 36);
             this.btn_Guardar.TabIndex = 1;
-            this.btn_Guardar.Text = "Guardar";
+            this.btn_Guardar.Text = "Ingresar";
             this.btn_Guardar.UseVisualStyleBackColor = true;
             this.btn_Guardar.Click += new System.EventHandler(this.btn_Guardar_Click);
             // 

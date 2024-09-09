@@ -16,10 +16,8 @@ namespace Login.Models
         public string Password { get; set; }
         public string Roles { get; set; }
 
-        // Constructor vacío
         public UsuariosModel() { }
 
-        // Método para insertar un nuevo usuario y retornar el registro insertado
         public static UsuariosModel Insertar(UsuariosModel usuario)
         {
             try
@@ -63,7 +61,6 @@ namespace Login.Models
             return null;
         }
 
-        // Método para actualizar un usuario existente y retornar "OK"
         public static string Actualizar(UsuariosModel usuario)
         {
             try
@@ -96,7 +93,6 @@ namespace Login.Models
             }
         }
 
-        // Método para eliminar un usuario y retornar "OK"
         public static string Eliminar(int idUsuario)
         {
             try
@@ -125,7 +121,6 @@ namespace Login.Models
             }
         }
 
-        // Método para obtener un usuario por ID
         public static UsuariosModel ObtenerPorId(int idUsuario)
         {
             try
@@ -165,7 +160,6 @@ namespace Login.Models
             return null;
         }
 
-        // Método para obtener todos los usuarios
         public static List<UsuariosModel> ObtenerTodos()
         {
             var usuarios = new List<UsuariosModel>();
@@ -221,9 +215,6 @@ namespace Login.Models
                             if (lector.Read())
                             {
 
-                                //password de la base no tiene conocimeinto el atacante
-                                //siempre va aser difeernte al password que ingresa por la caja de texto
-
                                 return new UsuariosModel
                                 {
                                     ID = Convert.ToInt32(lector["ID"]),
@@ -234,7 +225,6 @@ namespace Login.Models
                             }
                             else
                             {
-                                // Retorna null si las credenciales no son válidas
                                 return null;
                             }
                         }
@@ -243,24 +233,19 @@ namespace Login.Models
             }
             catch (SqlException ex)
             {
-                // Manejar el error de SQL
                 throw new Exception("Error de SQL al autenticar el usuario: " + ex.Message);
             }
             catch (Exception ex)
             {
-                // Manejar cualquier otro tipo de error
                 throw new Exception("Error al autenticar el usuario: " + ex.Message);
             }
         }
-
-        //                                          ' or 1=1 --            123456
         public  UsuariosModel OtroAutenticar(string nombreUsuario, string password)
         {
             try
             {
                 using (var conexion = Conexion.GetConnection())
                 {
-                                                                                    //' or 1=1 --    
                     string consulta = "SELECT * FROM usuario WHERE nombre_usuario ='" + nombreUsuario + "'";
                     using (var comando = new SqlCommand(consulta, conexion))
                     {
@@ -268,11 +253,8 @@ namespace Login.Models
                         {
                             if (lector.Read())
                             {
-                                //md5                       //123
                                 if (lector["password"].ToString() == password)
                                 {
-                                    //password de la base no tiene conocimeinto el atacante
-                                    //siempre va a ser diferente al password que ingresa por la caja de texto
                                     return new UsuariosModel
                                     {
                                         ID = Convert.ToInt32(lector["ID"]),
@@ -289,7 +271,6 @@ namespace Login.Models
                             }
                             else
                             {
-                                // Retorna null si las credenciales no son válidas
                                 return null;
                             }
                         }
@@ -298,12 +279,10 @@ namespace Login.Models
             }
             catch (SqlException ex)
             {
-                // Manejar el error de SQL
                 throw new Exception("Error de SQL al autenticar el usuario: " + ex.Message);
             }
             catch (Exception ex)
             {
-                // Manejar cualquier otro tipo de error
                 throw new Exception("Error al autenticar el usuario: " + ex.Message);
             }
         }

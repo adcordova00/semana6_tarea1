@@ -1,23 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO.Ports;
 using Login.Controllers;
 using Login.Models;
-using Login.Config;
 using Login.config;
 
 namespace Login.Views.Usuarios
 {
     public partial class frm_Usuarios : Form
     {
-        SerialPort _arduino;
 
         UsuariosController _usuariosController = new UsuariosController();
         UsuariosModel usuariosModel = new UsuariosModel();
@@ -26,12 +16,6 @@ namespace Login.Views.Usuarios
         public frm_Usuarios()
         {
             InitializeComponent();
-            /* _arduino = new SerialPort();
-             _arduino.PortName = "COM4";
-             _arduino.BaudRate = 9600;
-             _arduino.Open();*/
-
-
         }
 
         private void frm_Usuarios_Load(object sender, EventArgs e)
@@ -48,9 +32,6 @@ namespace Login.Views.Usuarios
             lst_usuarios.DataSource = listausuarios;
             lst_usuarios.DisplayMember = "NombreUsuario";
             lst_usuarios.ValueMember = "ID";
-
-
-
         }
 
         private void frm_Usuarios_FormClosing(object sender, FormClosingEventArgs e)
@@ -58,15 +39,6 @@ namespace Login.Views.Usuarios
             if (_arduino.IsOpen) {
                 _arduino.Close();
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //_arduino.Write("E");
-
-            // txt_nombre.Text = _arduino.Read().ToString();
-
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -81,29 +53,23 @@ namespace Login.Views.Usuarios
             {
                 var resultado = new UsuariosModel();
                 var res = "";
-                /*UsuariosModel usuario = new UsuariosModel();
-                usuario.NombreUsuario = txt_nombre.Text.Trim();
-                usuario.Password = txt_contrasenia.Text.Trim();
-                usuario.Roles = cmb_roles.SelectedItem.ToString();*/
-
                 var usuario = new UsuariosModel {
                 ID = this.id,
                 NombreUsuario = txt_nombre.Text.Trim().ToString(),
                 Password = txt_contrasenia.Text.Trim().ToString(),
-                Roles = cmb_roles.SelectedText
+                Roles = cmb_roles.SelectedItem.ToString()
                 };
                 MessageBox.Show(cmb_roles.SelectedItem.ToString());
                 if (this.id != 0)
                 {
-                    //resultado = _usuariosController.ActualizarUsuario(usuario);
                    res = UsuariosModel.Actualizar(usuario);
                 }
                 else {
                     resultado = _usuariosController.InsertarUsuario(usuario);
-                    _ = resultado.ID > 0 ? res = "ok" : "eror";
+                    _ = resultado.ID > 0 ? res = "ok" : "error";
                 }
-                if (res == "OK") {
-                   MessageBox.Show("Se guardo con exito");
+                if (res == "ok") {
+                    MessageBox.Show("Se guardo con exito");
                     cargalista();
                     txt_contrasenia.Text = "";
                     txt_nombre.Text = "";
@@ -120,7 +86,6 @@ namespace Login.Views.Usuarios
 
         public bool comprobar() {
 
-            //txt_nombre.Text.Trim() == "" ? MessageBox.Show("Ingrese el nombres") : "" 
             if (txt_nombre.Text.Trim() == "")
             {
                 MessageBox.Show("Ingrese el nombre del usuario");
@@ -147,6 +112,13 @@ namespace Login.Views.Usuarios
 
         }
 
+        public void LimpiarForm() { 
+            txt_nombre.Text = string.Empty;
+            txt_contrasenia.Text = string.Empty;
+            txt_repita.Text= string.Empty;
+            cmb_roles.SelectedIndex = 0;
+        }
+
         private void lst_usuarios_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lst_usuarios.SelectedValue != null)
@@ -156,17 +128,39 @@ namespace Login.Views.Usuarios
                 txt_nombre.Text = usuario.NombreUsuario;
                 txt_contrasenia.Text = usuario.Password;
                 txt_repita.Text = usuario.Password;
-                if (usuario.Roles == "Admin") cmb_roles.SelectedIndex = 1;
-                if (usuario.Roles == "Guardia") cmb_roles.SelectedIndex = 2;
-                if (usuario.Roles == "Financiero") cmb_roles.SelectedIndex = 3;
-                if (usuario.Roles == "Bodega") cmb_roles.SelectedIndex = 4;
-                
-
-                
+                cmb_roles.SelectedItem = usuario.Roles;
             }
             else {
                 ErrorHandler.ManejarErrorGeneral(null, "Seleccione un usuario de la lista");
             }
+        }
+
+        private void btn_eliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Desea Eliminar el usuario?", "Formulario de usuarios", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                var usuario = _usuariosController.EliminarUsuario(Convert.ToInt32(lst_usuarios.SelectedValue));
+                if (lst_usuarios.SelectedItem == null)
+                {
+                    ErrorHandler.ManejarEliminar();
+                }
+                else
+                {
+                    MessageBox.Show("El usuario se elimino con exito");
+                    cargalista();
+                }
+            }
+            else
+            {
+                MessageBox.Show("El usuario cancelo la operacion");
+            }
+
+        }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            LimpiarForm();
         }
     }
 }
